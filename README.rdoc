@@ -1,0 +1,29 @@
+= hunspell-ffi
+
+A Ruby FFI interface to the Hunspell spelling checker
+
+It should work wherever Ruby FFI works (tested on Ruby 1.9.2, 1.8.7, JRuby 1.5.1). 
+
+== Installation
+  1. Install hunspell (OSX: 'brew install hunspell' Debian: 'apt-get install hunspell')
+  2. gem install hunspell-ffi
+
+== Usage
+  require 'hunspell-ffi'
+  dict = Hunspell.new("path/to/cakes.aff", "path/to/cakes.dic")
+  dict.spell("Baumkuchen")    # => true  same as #check
+  dict.spell("Bomcuken")      # => false
+  dict.suggest("Baumgurken")  # => ["Baumkuchen"]
+  dict.suggest("qwss43easd")  # => []
+
+== Author
+Andreas Haller
+andreashaller@gmail.com
+
+== License
+Hereby placed under public domain, do what you want, just do not hold me accountable...
+
+== TODO 
+Add other hunspell methods (add, remove, analyze, stem ...)
+
+Test on Windows

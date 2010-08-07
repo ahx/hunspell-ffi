@@ -3,7 +3,7 @@ require 'ffi'
 class Hunspell  
   module C
     extend FFI::Library
-    ffi_lib ['hunspell', 'libhunspell', 'hunspell-1.2', 'libhunspell-1.2']
+    ffi_lib ['libhunspell', 'libhunspell-1.2', 'libhunspell-1.2.so.0']
     attach_function :Hunspell_create, [:string, :string], :pointer
     attach_function :Hunspell_spell, [:pointer, :string], :bool
     attach_function :Hunspell_suggest, [:pointer, :pointer, :string], :int

@@ -15,6 +15,10 @@ It should work wherever Ruby FFI works (tested on Ruby 1.9.2, 1.8.7, JRuby 1.5.1
   dict.spell("Bomcuken")      # => false
   dict.suggest("Baumgurken")  # => ["Baumkuchen"]
   dict.suggest("qwss43easd")  # => []
+  
+  # Modify the run-time dictionary:
+  dict.add("Geburtstagskuchen")
+  dict.remove("Fichte")
 
 == Author
 Andreas Haller
@@ -24,6 +28,6 @@ andreashaller@gmail.com
 Hereby placed under public domain, do what you want, just do not hold me accountable...
 
 == TODO 
-Add other hunspell methods (add, remove, analyze, stem ...)
+Add hunspell analyzing methods (analyze, stem ...)
 
 Test on Windows

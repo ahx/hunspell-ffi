@@ -1,7 +1,7 @@
 # encoding: utf-8
 Gem::Specification.new do |s|
   s.name        = 'hunspell-ffi'
-  s.version     = '0.1.2'
+  s.version     = '0.1.3.alpha'
   s.date        = '2010-08-6'
   s.authors     = ["Andreas Haller"]
   s.email       = ["andreashaller@gmail.com"]

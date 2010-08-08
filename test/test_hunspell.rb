@@ -14,4 +14,13 @@ class TestHunspell < Test::Unit::TestCase
     assert_equal ["Baumkuchen"], @dict.suggest("Baumgurken")
     assert_equal [], @dict.suggest("qwss43easd")
   end
+  
+  def test_dict_modifications
+    assert @dict.spell("Neuer Kuchen") == false
+    @dict.add("Neuer Kuchen")
+    assert @dict.spell("Neuer Kuchen") == true
+    @dict.remove("Neuer Kuchen")
+    assert @dict.spell("Neuer Kuchen") == false
+    # TODO test add_with_affix
+  end    
 end

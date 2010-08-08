@@ -1,0 +1,8 @@
+= 0.1.3 (Work in progress)
+  * New methods: #add(word), #remove(word), #add_with_affix(word, example) to 
+    add/remove words from the run-time dictionary.
+  * Show a warning when we cannot find aff/dic files.
+
+= 0.1.2 / 2010-08-07
+  * First release that works on OSX and Debian
+  

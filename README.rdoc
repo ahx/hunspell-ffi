@@ -5,8 +5,14 @@ A Ruby FFI interface to the Hunspell spelling checker
 It should work wherever Ruby FFI works (tested on Ruby 1.9.2, 1.8.7, JRuby 1.5.1). 
 
 == Installation
-  1. Install hunspell (OSX: 'brew install hunspell' Debian: 'apt-get install hunspell')
-  2. gem install hunspell-ffi
+=== Install Hunspell
+On Mac OS X: Hunspell (libhunspell) is already installed on OSX 10.6.
+
+On Debian: 
+ apt-get install hunspell
+ 
+=== Install the Gem
+  gem install hunspell-ffi
 
 == Usage
   require 'hunspell-ffi'

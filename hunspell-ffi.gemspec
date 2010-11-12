@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.email       = ["andreashaller@gmail.com"]
   s.homepage    = "http://github.com/ahaller/hunspell-ffi"
   s.summary     = "A Ruby FFI interface to the Hunspell spelling checker"
-  s.add_dependency 'ffi', '>= 0.6.3'
+  s.add_dependency 'ffi', '~> 0.6.3'
   s.required_rubygems_version = ">= 1.3.6"
   s.files       = Dir['test/cakes*'] + Dir['test/*.rb'] + Dir['lib/**/*.rb'] + %w(Rakefile README.rdoc)
   s.test_files  = Dir['test/test_*.rb']

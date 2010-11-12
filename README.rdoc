@@ -1,8 +1,13 @@
 = hunspell-ffi
 
-A Ruby FFI interface to the Hunspell spelling checker
+A Ruby FFI interface to the Hunspell spelling checker.
+
+"Hunspell is the spell checker of OpenOffice.org and Mozilla Firefox 3 & Thunderbird, Google Chrome, and it is also used by proprietary softwares, like Mac OS X, memoQ, Opera and SDL Trados."
+ - http://hunspell.sourceforge.net/
 
 It should work wherever Ruby FFI works (tested on Ruby 1.9.2, 1.8.7, JRuby 1.5.1). 
+
+This should be a drop-in replacement for rhunspell (https://github.com/tiendung/rhunspell), but using ffi.
 
 == Installation
 === Install Hunspell
@@ -26,14 +31,19 @@ On Debian:
   dict.add("Geburtstagskuchen")
   dict.remove("Fichte")
 
-== Author
-Andreas Haller
-andreashaller@gmail.com
+== Authors
+Andreas Haller - https://github.com/ahaller
 
 == License
-Hereby placed under public domain, do what you want, just do not hold me accountable...
+Hereby placed under public domain, do what you want, just do not hold me accountable.
 
-== TODO 
-Add hunspell analyzing methods (analyze, stem ...)
+== Help wanted
+I hear Hunspell has some superpowers like stemming and some that i never even heard of. 
+Maybe you want to help out to bring something of that power into the ruby world. 
+Or maybe we can think of a nice way to find to locate .dict files on a system or something. 
+Anyways, feel free to fork and send pull requests. kthxbye. Andreas.
+
+=== TODOs
+Figure out how to use and add hunspell analyzing methods (analyze, stem ...)
 
 Test on Windows

@@ -43,6 +43,8 @@ Maybe you want to help out to bring something of that power into the ruby world.
 Or maybe we can think of a nice way to find to locate .dict files on a system or something. 
 Anyways, feel free to fork and send pull requests. kthxbye. Andreas.
 
+The source is on GitHub: https://github.com/ahaller/hunspell-ffi
+
 === TODOs
 Figure out how to use and add hunspell analyzing methods (analyze, stem ...)
 

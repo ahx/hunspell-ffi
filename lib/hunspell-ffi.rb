@@ -22,7 +22,8 @@ class Hunspell
   def spell(word)
     C.Hunspell_spell(@handler, word)
   end
-  alias_method :check, :spell  
+  alias_method :check, :spell
+  alias_method :check?, :check  
   
   # Returns an array with suggested words or returns and empty array.
   def suggest(word)

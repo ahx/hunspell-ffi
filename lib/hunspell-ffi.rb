@@ -9,7 +9,8 @@ class Hunspell
     attach_function :Hunspell_suggest, [:pointer, :pointer, :string], :int
     attach_function :Hunspell_add, [:pointer, :string], :int
     attach_function :Hunspell_add_with_affix, [:pointer, :string, :string], :int
-    attach_function :Hunspell_remove, [:pointer, :string], :int    
+    attach_function :Hunspell_remove, [:pointer, :string], :int
+    attach_function :Hunspell_stem, [:pointer, :pointer, :string], :int    
   end
   
   def initialize(affpath, dicpath)
@@ -48,5 +49,12 @@ class Hunspell
   # Remove word from the run-time dictionary
   def remove(word)
     C.Hunspell_remove(@handler, word)
+  end
+  
+  def stem(word)
+    ptr = FFI::MemoryPointer.new(:pointer,1)    
+    len = Hunspell::C.Hunspell_stem(@handler, ptr, word)
+    str_ptr = ptr.read_pointer
+    str_ptr.null? ? [] : str_ptr.get_array_of_string(0, len).compact
   end
 end

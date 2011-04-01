@@ -22,8 +22,9 @@ On Debian:
 == Usage
   require 'hunspell-ffi'
   dict = Hunspell.new("path/to/cakes.aff", "path/to/cakes.dic")
-  dict.spell("Baumkuchen")    # => true  same as #check
+  dict.spell("Baumkuchen")    # => true  same as #check, #check?
   dict.spell("Bomcuken")      # => false
+  dict.check?("Bomcuken")     # => false
   dict.suggest("Baumgurken")  # => ["Baumkuchen"]
   dict.suggest("qwss43easd")  # => []
   
@@ -32,7 +33,8 @@ On Debian:
   dict.remove("Fichte")
 
 == Authors
-Andreas Haller - https://github.com/ahaller
+Andreas Haller (https://github.com/ahaller) and contributors.
+Full list of contributors: https://github.com/ahaller/hunspell-ffi/contributors
 
 == License
 Hereby placed under public domain, do what you want, just do not hold me accountable.

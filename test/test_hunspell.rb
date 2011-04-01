@@ -27,7 +27,6 @@ class TestHunspell < Test::Unit::TestCase
   def test_stemming
     en_dict = Hunspell.new( "/Applications/OpenOffice.org.app/Contents/share/uno_packages/cache/uno_packages/ew4NXe_/dict-en.oxt/en_US.aff", "/Applications/OpenOffice.org.app/Contents/share/uno_packages/cache/uno_packages/ew4NXe_/dict-en.oxt/en_US.dic")
     assert en_dict.stem('fishing') == %w[fishing fish]
-    puts "HERE IS SOMETHING: #{en_dict.stem('running')}"
   end
    
 end

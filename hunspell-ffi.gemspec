@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.date        = '2011-03-23'
   s.authors     = ["Andreas Haller"]
   s.email       = ["andreashaller@gmail.com"]
-  s.homepage    = "http://github.com/ahaller/hunspell-ffi"
+  s.homepage    = "http://github.com/ahx/hunspell-ffi"
   s.summary     = "A Ruby FFI interface to the Hunspell spelling checker"
   
   s.add_dependency 'ffi', '~> 1.0.7'

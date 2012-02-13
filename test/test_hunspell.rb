@@ -22,5 +22,11 @@ class TestHunspell < Test::Unit::TestCase
     @dict.remove("Neuer Kuchen")
     assert @dict.spell("Neuer Kuchen") == false
     # TODO test add_with_affix
-  end    
+  end   
+  
+  def test_stemming
+    en_dict = Hunspell.new( "/Applications/OpenOffice.org.app/Contents/share/uno_packages/cache/uno_packages/ew4NXe_/dict-en.oxt/en_US.aff", "/Applications/OpenOffice.org.app/Contents/share/uno_packages/cache/uno_packages/ew4NXe_/dict-en.oxt/en_US.dic")
+    assert en_dict.stem('fishing') == %w[fishing fish]
+  end
+   
 end

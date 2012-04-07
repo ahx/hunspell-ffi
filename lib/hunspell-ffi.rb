@@ -10,6 +10,7 @@ class Hunspell
     attach_function :Hunspell_add, [:pointer, :string], :int
     attach_function :Hunspell_add_with_affix, [:pointer, :string, :string], :int
     attach_function :Hunspell_analyze, [:pointer, :pointer, :string], :int
+    attach_function :Hunspell_free_list, [:pointer, :pointer, :int], :void
     attach_function :Hunspell_remove, [:pointer, :string], :int    
     attach_function :Hunspell_stem, [:pointer, :pointer, :string], :int
   end
@@ -54,13 +55,19 @@ class Hunspell
 
     len = C.Hunspell_analyze(@handler, list_pointer, word)
 
-    if len > 0 then
-      list = list_pointer.read_pointer
+    read_list(list_pointer, len)
+  end
 
-      list.get_array_of_string 0, len
-    else
-      []
-    end
+  def read_list(list_pointer, len)
+    return [] if len.zero?
+
+    list = list_pointer.read_pointer
+
+    strings = list.get_array_of_string(0, len)
+
+    #C.Hunspell_free_list(@handler, list_pointer, len)
+
+    strings
   end
 
   # Remove word from the run-time dictionary
@@ -74,13 +81,7 @@ class Hunspell
 
     len = C.Hunspell_stem(@handler, list_pointer, word)
 
-    if len > 0 then
-      list = list_pointer.read_pointer
-
-      list.get_array_of_string 0, len
-    else
-      []
-    end
+    read_list(list_pointer, len)
   end
 
 end

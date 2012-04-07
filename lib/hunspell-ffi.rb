@@ -65,7 +65,7 @@ class Hunspell
 
     strings = list.get_array_of_string(0, len)
 
-    #C.Hunspell_free_list(@handler, list_pointer, len)
+    C.Hunspell_free_list(@handler, list_pointer, len)
 
     strings
   end

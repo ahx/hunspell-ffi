@@ -9,7 +9,9 @@ class Hunspell
     attach_function :Hunspell_suggest, [:pointer, :pointer, :string], :int
     attach_function :Hunspell_add, [:pointer, :string], :int
     attach_function :Hunspell_add_with_affix, [:pointer, :string, :string], :int
+    attach_function :Hunspell_analyze, [:pointer, :pointer, :string], :int
     attach_function :Hunspell_remove, [:pointer, :string], :int    
+    attach_function :Hunspell_stem, [:pointer, :pointer, :string], :int
   end
 
   ##
@@ -91,9 +93,41 @@ class Hunspell
   def add_with_affix(word, example)
     C.Hunspell_add_with_affix(@handler, word, example)
   end
-    
+
+  # Performs morphological analysis of +word+.  See hunspell(4) for details on
+  # the output format.
+  def analyze(word)
+    list_pointer = FFI::MemoryPointer.new(:pointer, 1)
+
+    len = C.Hunspell_analyze(@handler, list_pointer, word)
+
+    if len > 0 then
+      list = list_pointer.read_pointer
+
+      list.get_array_of_string 0, len
+    else
+      []
+    end
+  end
+
   # Remove word from the run-time dictionary
   def remove(word)
     C.Hunspell_remove(@handler, word)
   end
+
+  # Returns the stems of +word+
+  def stem(word)
+    list_pointer = FFI::MemoryPointer.new(:pointer, 1)
+
+    len = C.Hunspell_stem(@handler, list_pointer, word)
+
+    if len > 0 then
+      list = list_pointer.read_pointer
+
+      list.get_array_of_string 0, len
+    else
+      []
+    end
+  end
+
 end

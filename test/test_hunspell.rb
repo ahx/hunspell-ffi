@@ -27,6 +27,10 @@ class TestHunspell < Test::Unit::TestCase
     dict = File.join(@dict_dir, "en_CA.aff")
     assert_equal "Hunspell could not find affix file #{dict}", e.message
   end
+
+  def test_analyze
+    assert_equal [" st:Baumkuchen"], @dict.analyze("Baumkuchen")
+  end
   
   def test_basic_spelling
     assert @dict.spell("worked")
@@ -97,5 +101,9 @@ class TestHunspell < Test::Unit::TestCase
   ensure
     ENV["LC_ALL"]      = orig_LC_ALL
     ENV["LC_MESSAGES"] = orig_LC_MESSAGES
+  end
+
+  def test_stem
+    assert_equal %w[Baumkuchen], @dict.stem("Baumkuchen")
   end
 end

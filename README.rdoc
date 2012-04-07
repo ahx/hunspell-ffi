@@ -27,7 +27,10 @@ On Debian:
   dict.check?("Bomcuken")     # => false
   dict.suggest("Baumgurken")  # => ["Baumkuchen"]
   dict.suggest("qwss43easd")  # => []
-  
+
+  dict.stem("Baumkuchen")     # => ["Baumkuchen"]
+  dict.analyze("Baumkuchen")  # => [" st:Baumkuchen"]
+
   # Modify the run-time dictionary:
   dict.add("Geburtstagskuchen")
   dict.remove("Fichte")
@@ -40,14 +43,10 @@ Full list of contributors: https://github.com/ahx/hunspell-ffi/contributors
 Hereby placed under public domain, do what you want, just do not hold me accountable.
 
 == Help wanted
-I hear Hunspell has some superpowers like stemming and some that i never even heard of. 
-Maybe you want to help out to bring something of that power into the ruby world. 
-Or maybe we can think of a nice way to find to locate .dict files on a system or something. 
+Maybe we can think of a nice way to find to locate .dict files on a system or something.
 Anyways, feel free to fork and send pull requests. kthxbye. Andreas.
 
 The source is on GitHub: https://github.com/ahx/hunspell-ffi
 
 === TODOs
-Figure out how to use and add hunspell analyzing methods (analyze, stem ...)
-
 Test on Windows

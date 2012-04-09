@@ -20,12 +20,22 @@ On Debian:
   gem install hunspell-ffi
 
 == Usage
+
   require 'hunspell-ffi'
+
+  # Detect language from ENV:
+  dict = Hunspell.new("/path/to/dictionaries")
+
+  # Directly specify language:
+  dict = Hunspell.new("/path/to/dictionaries", "en_US")
+
+  # directly specify dictionaries (legacy)
   dict = Hunspell.new("path/to/cakes.aff", "path/to/cakes.dic")
-  dict.spell("Baumkuchen")    # => true  same as #check, #check?
-  dict.spell("Bomcuken")      # => false
-  dict.check?("Bomcuken")     # => false
-  dict.suggest("Baumgurken")  # => ["Baumkuchen"]
+
+  dict.spell("walked")        # => true  same as #check, #check?
+  dict.spell("woked")         # => false
+  dict.check?("woked")        # => false
+  dict.suggest("woked")       # => ["woke", "worked", "waked", "woken", ...]
   dict.suggest("qwss43easd")  # => []
   
   # Modify the run-time dictionary:
@@ -42,7 +52,6 @@ Hereby placed under public domain, do what you want, just do not hold me account
 == Help wanted
 I hear Hunspell has some superpowers like stemming and some that i never even heard of. 
 Maybe you want to help out to bring something of that power into the ruby world. 
-Or maybe we can think of a nice way to find to locate .dict files on a system or something. 
 Anyways, feel free to fork and send pull requests. kthxbye. Andreas.
 
 The source is on GitHub: https://github.com/ahx/hunspell-ffi

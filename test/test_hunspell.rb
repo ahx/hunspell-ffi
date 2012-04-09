@@ -6,6 +6,10 @@ class TestHunspell < Test::Unit::TestCase
     @dict_dir = File.dirname(__FILE__)
     @dict = Hunspell.new("#{@dict_dir}/cakes.aff", "#{@dict_dir}/cakes.dic")
   end
+
+  def test_analyze
+    assert_equal [" st:Baumkuchen"], @dict.analyze("Baumkuchen")
+  end
   
   def test_basic_spelling
     assert @dict.spell("Baumkuchen") == true
@@ -23,4 +27,8 @@ class TestHunspell < Test::Unit::TestCase
     assert @dict.spell("Neuer Kuchen") == false
     # TODO test add_with_affix
   end    
+
+  def test_stem
+    assert_equal %w[Baumkuchen], @dict.stem("Baumkuchen")
+  end
 end

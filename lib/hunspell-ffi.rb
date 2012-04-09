@@ -9,7 +9,10 @@ class Hunspell
     attach_function :Hunspell_suggest, [:pointer, :pointer, :string], :int
     attach_function :Hunspell_add, [:pointer, :string], :int
     attach_function :Hunspell_add_with_affix, [:pointer, :string, :string], :int
+    attach_function :Hunspell_analyze, [:pointer, :pointer, :string], :int
+    attach_function :Hunspell_free_list, [:pointer, :pointer, :int], :void
     attach_function :Hunspell_remove, [:pointer, :string], :int    
+    attach_function :Hunspell_stem, [:pointer, :pointer, :string], :int
   end
   
   def initialize(affpath, dicpath)
@@ -27,10 +30,11 @@ class Hunspell
   
   # Returns an array with suggested words or returns and empty array.
   def suggest(word)
-    ptr = FFI::MemoryPointer.new(:pointer, 1)    
-    len = Hunspell::C.Hunspell_suggest(@handler, ptr, word)
-    str_ptr = ptr.read_pointer
-    str_ptr.null? ? [] : str_ptr.get_array_of_string(0, len).compact
+    list_pointer = FFI::MemoryPointer.new(:pointer, 1)
+
+    len = C.Hunspell_suggest(@handler, list_pointer, word)
+
+    read_list(list_pointer, len)
   end
   
   # Add word to the run-time dictionary
@@ -44,9 +48,41 @@ class Hunspell
   def add_with_affix(word, example)
     C.Hunspell_add_with_affix(@handler, word, example)
   end
-    
+
+  # Performs morphological analysis of +word+.  See hunspell(4) for details on
+  # the output format.
+  def analyze(word)
+    list_pointer = FFI::MemoryPointer.new(:pointer, 1)
+
+    len = C.Hunspell_analyze(@handler, list_pointer, word)
+
+    read_list(list_pointer, len)
+  end
+
+  def read_list(list_pointer, len)
+    return [] if len.zero?
+
+    list = list_pointer.read_pointer
+
+    strings = list.get_array_of_string(0, len)
+
+    C.Hunspell_free_list(@handler, list_pointer, len)
+
+    strings
+  end
+
   # Remove word from the run-time dictionary
   def remove(word)
     C.Hunspell_remove(@handler, word)
   end
+
+  # Returns the stems of +word+
+  def stem(word)
+    list_pointer = FFI::MemoryPointer.new(:pointer, 1)
+
+    len = C.Hunspell_stem(@handler, list_pointer, word)
+
+    read_list(list_pointer, len)
+  end
+
 end

@@ -30,10 +30,11 @@ class Hunspell
   
   # Returns an array with suggested words or returns and empty array.
   def suggest(word)
-    ptr = FFI::MemoryPointer.new(:pointer, 1)    
-    len = Hunspell::C.Hunspell_suggest(@handler, ptr, word)
-    str_ptr = ptr.read_pointer
-    str_ptr.null? ? [] : str_ptr.get_array_of_string(0, len).compact
+    list_pointer = FFI::MemoryPointer.new(:pointer, 1)
+
+    len = C.Hunspell_suggest(@handler, list_pointer, word)
+
+    read_list(list_pointer, len)
   end
   
   # Add word to the run-time dictionary

@@ -11,13 +11,60 @@ class Hunspell
     attach_function :Hunspell_add_with_affix, [:pointer, :string, :string], :int
     attach_function :Hunspell_remove, [:pointer, :string], :int    
   end
-  
-  def initialize(affpath, dicpath)
-    warn("Hunspell could not find aff-file #{affpath}") unless File.exist?(affpath)
-    warn("Hunspell could not find dic-file #{affpath}") unless File.exist?(dicpath)
-    @handler = C.Hunspell_create(affpath, dicpath)
+
+  ##
+  # The affix file used to check words
+
+  attr_reader :affix
+
+  ##
+  # The dictionary file used to check words
+
+  attr_reader :dictionary
+
+  ##
+  # Creates a spell-checking instance.  If only +path+ is given, Hunspell will
+  # look for a dictionary using the language of your current locale, checking
+  # LC_ALL, LC_MESSAGES and LANG.  If you would like to spell check words of a
+  # specific language provide it as the second parameter, +language+.
+  #
+  # You may also directly provide the affix file as the +path+ argument and
+  # the dictionary file as the +language+ argument, provided they both exist.
+  # This is for legacy use of Hunspell.
+
+  def initialize(path, language = nil)
+    if File.exist?(path) and language and File.exist?(language) then
+      @affix      = path
+      @dictionary = language
+    else
+      language ||= find_language
+
+      @affix      = File.join path, "#{language}.aff"
+      @dictionary = File.join path, "#{language}.dic"
+    end
+
+    raise ArgumentError,
+          "Hunspell could not find affix file #{@affix}" unless
+      File.exist?(@affix)
+    raise ArgumentError,
+          "Hunspell could not find dictionary file #{@dictionary}" unless
+      File.exist?(@dictionary)
+
+    @handler = C.Hunspell_create @affix, @dictionary
   end
-  
+
+  def find_language
+    %w[LC_ALL LC_MESSAGES LANG].each do |var|
+      next unless value = ENV[var]
+
+      lang, charset = value.split('.', 2)
+
+      return lang if charset
+    end
+
+    nil
+  end
+
   # Returns true for a known word or false.
   def spell(word)
     C.Hunspell_spell(@handler, word)

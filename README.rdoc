@@ -30,7 +30,7 @@ On Debian:
   dict = Hunspell.new("/path/to/dictionaries", "en_US")
 
   # directly specify dictionaries (legacy)
-  dict = Hunspell.new("path/to/cakes.aff", "path/to/cakes.dic")
+  dict = Hunspell.new("path/to/dictionaries/en_US.aff", "path/to/dictionaries/en_US.dic")
 
   dict.spell("walked")        # => true  same as #check, #check?
   dict.spell("woked")         # => false

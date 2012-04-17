@@ -13,10 +13,10 @@ class TestHunspell < Test::Unit::TestCase
   end
   
   def test_initialize_legacy
-    h = Hunspell.new("#{@dict_dir}/cakes.aff", "#{@dict_dir}/cakes.dic")
+    h = Hunspell.new("#{@dict_dir}/en_US.aff", "#{@dict_dir}/en_US.dic")
 
-    assert_equal File.join(@dict_dir, "cakes.aff"), h.affix
-    assert_equal File.join(@dict_dir, "cakes.dic"), h.dictionary
+    assert_equal File.join(@dict_dir, "en_US.aff"), h.affix
+    assert_equal File.join(@dict_dir, "en_US.dic"), h.dictionary
   end
   
   def test_initialize_missing
@@ -29,7 +29,7 @@ class TestHunspell < Test::Unit::TestCase
   end
 
   def test_analyze
-    assert_equal [" st:Baumkuchen"], @dict.analyze("Baumkuchen")
+    assert_equal [" st:hello"], @dict.analyze("hello")
   end
   
   def test_basic_spelling
@@ -104,6 +104,6 @@ class TestHunspell < Test::Unit::TestCase
   end
 
   def test_stem
-    assert_equal %w[Baumkuchen], @dict.stem("Baumkuchen")
+    assert_equal %w[hello], @dict.stem("hello")
   end
 end

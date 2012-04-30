@@ -11,6 +11,7 @@ class Hunspell
     attach_function :Hunspell_add_with_affix, [:pointer, :string, :string], :int
     attach_function :Hunspell_analyze, [:pointer, :pointer, :string], :int
     attach_function :Hunspell_free_list, [:pointer, :pointer, :int], :void
+    attach_function :Hunspell_get_dic_encoding, [:pointer], :string
     attach_function :Hunspell_remove, [:pointer, :string], :int    
     attach_function :Hunspell_stem, [:pointer, :pointer, :string], :int
   end
@@ -54,6 +55,16 @@ class Hunspell
       File.exist?(@dictionary)
 
     @handler = C.Hunspell_create @affix, @dictionary
+    @dic_encoding = nil
+
+    if Object.const_defined? :Encoding then
+      begin
+        encoding_name = C.Hunspell_get_dic_encoding @handler
+        @dic_encoding = Encoding.find encoding_name
+      rescue ArgumentError
+        # unknown encoding name, results will be ASCII-8BIT
+      end
+    end
   end
 
   def find_language
@@ -114,6 +125,12 @@ class Hunspell
     strings = list.get_array_of_string(0, len)
 
     C.Hunspell_free_list(@handler, list_pointer, len)
+
+    if @dic_encoding then
+      strings.map do |string|
+        string.force_encoding @dic_encoding
+      end
+    end
 
     strings
   end

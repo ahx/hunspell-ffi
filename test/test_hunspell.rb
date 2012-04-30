@@ -106,4 +106,10 @@ class TestHunspell < Test::Unit::TestCase
   def test_stem
     assert_equal %w[hello], @dict.stem("hello")
   end
+
+  def test_suggest
+    suggestions = @dict.suggest "HOWTOs"
+
+    assert_equal %w[Hots’s], suggestions
+  end
 end

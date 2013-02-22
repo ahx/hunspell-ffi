@@ -1,3 +1,12 @@
+= Unmaintained
+
+NOTE: This project has been abandoned. Use https://github.com/postmodern/ffi-hunspell instead.
+
+However, the code is still available on the {master branch}[https://github.com/ahx/hunspell-ffi/tree/foo].
+
+
+
+
 = hunspell-ffi
 
 A Ruby FFI interface to the Hunspell spelling checker.
@@ -5,7 +14,7 @@ A Ruby FFI interface to the Hunspell spelling checker.
 "Hunspell is the spell checker of OpenOffice.org and Mozilla Firefox 3 & Thunderbird, Google Chrome, and it is also used by proprietary softwares, like Mac OS X, memoQ, Opera and SDL Trados."
  - http://hunspell.sourceforge.net/
 
-It should work wherever Ruby FFI works (tested on Ruby 1.9.2, 1.8.7, JRuby 1.5.1). 
+It should work wherever Ruby FFI works (tested on Ruby 1.9.2, 1.8.7, JRuby 1.5.1).
 
 This should be a drop-in replacement for rhunspell (https://github.com/tiendung/rhunspell), but using ffi.
 
@@ -13,9 +22,9 @@ This should be a drop-in replacement for rhunspell (https://github.com/tiendung/
 === Install Hunspell
 On Mac OS X: Hunspell (libhunspell) is already installed on OSX 10.6.
 
-On Debian: 
+On Debian:
  apt-get install hunspell
- 
+
 === Install the Gem
   gem install hunspell-ffi
 
